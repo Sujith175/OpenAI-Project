@@ -15,7 +15,7 @@
   width: 200px;
   height: 238px;
   top: 0;
-  background-color: #ca00ff;
+  background-color: #e18951;
   filter: blur(175px);
 }
 .gradient-02 {
@@ -24,6 +24,24 @@
   height: 238px;
   top: -6rem;
   right: 0px;
-  background-color: #7aebfb;
+  background-color: #e03a2a;
   filter: blur(190px);
+}
+.gradient-03 {
+  position: absolute;
+  width: 2000px;
+  height: 400px;
+  top: -20rem;
+  right: 0px;
+  background-color: #15a7b2;
+  filter: blur(290px);
+}
+.gradient-04 {
+  position: absolute;
+  width: 200px;
+  height: 400px;
+  top: -10rem;
+  right: 0px;
+  background-color: #d12ae0;
+  filter: blur(290px);
 }
