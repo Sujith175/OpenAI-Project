@@ -25,13 +25,15 @@ app.listen("3080", () => console.log("Listening on Port 3080"));
 //post Route making request
 app.post("/", async (req, res) => {
   const { message } = req.body;
+
   try {
     const response = await openai.createCompletion({
-      model: " text-davinci-003",
+      model: "text-davinci-003",
       prompt: `${message}`,
       max_tokens: 100,
       temperature: 0.5,
     });
+
     res.json({ message: response.data.choices[0].text });
   } catch (error) {
     console.log(error);

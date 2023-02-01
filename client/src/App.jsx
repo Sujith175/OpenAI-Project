@@ -5,11 +5,16 @@ import ChatInput from "./components/ChatInput";
 import { useMutation } from "react-query";
 function App() {
   const [chat, setChat] = useState([]);
+
   const mutation = useMutation({
     mutationFn: () => {
       return fetchResponse(chat);
     },
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) =>
+      setChat((prev) => [
+        ...prev,
+        { sender: "ai", message: data.message.replace(/^\n\n/, "") },
+      ]),
   });
 
   const sendMessage = async (message) => {
@@ -26,12 +31,12 @@ function App() {
         ChatGPT 2.0
       </div>
       {/* body */}
-      <div className="h-[90%] overflow-auto w-full max-w-4xl min-w-[20rem] py-8 px-4 self-center">
+      <div className="h-[90%] overflow-auto w-full max-w-4xl min-w-[20rem] py-8 px-4 self-center scrollbar-thumb-slate-400 scrollbar-thin scrollbar-track-gray-transparent scrollbar-thumb-border-md">
         <ChatBody chat={chat} />
       </div>
       {/* input */}
       <div className="w-full max-w-4xl min-w-[20rem] self-center">
-        <ChatInput sendMessage={sendMessage} />
+        <ChatInput sendMessage={sendMessage} loading={mutation.isLoading} />
       </div>
     </div>
   );

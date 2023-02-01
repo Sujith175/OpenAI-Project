@@ -1,10 +1,23 @@
-import React from "react";
-
+import React, { useRef } from "react";
+import autoAnimate from "@formkit/auto-animate";
+import { useEffect } from "react";
 const ChatBody = ({ chat }) => {
   const aiStyle =
     "bg-white bg-opacity-40 backdrop-blur-lg dropshadow-md mr-auto";
+
+  const parent = useRef(null);
+  const bottomRef = useRef(null);
+
+  //for scrolling bottom
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
+  //for animation logic
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
   return (
-    <div className="flex flex-col gap-4 ">
+    <div className="flex flex-col gap-4" ref={parent}>
       {chat.map((message, i) => {
         return (
           <div
@@ -13,22 +26,13 @@ const ChatBody = ({ chat }) => {
               message.sender === "ai" && aiStyle
             }`}
           >
-            <pre className="whitespaces-pre-wrap">
+            <pre className="whitespace-pre-wrap">
               <span>{message.message}</span>
             </pre>
           </div>
         );
       })}
-
-      {/* AI Message */}
-      <div
-        className={`border-[#999999] break-words border-2 rounded-xl self-end px-3 py-3 max-w-[80%]'
-        <pre className= 'whitespaces-pre-wrap ${aiStyle}`}
-      >
-        <pre>
-          <span>Yeah, I can Help you with anything</span>
-        </pre>
-      </div>
+      <div ref={bottomRef} className="h-3"></div>
     </div>
   );
 };
